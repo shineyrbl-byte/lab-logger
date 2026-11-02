@@ -24,11 +24,13 @@
   VersionPatch: 0
   VersionPrerelease: ""
   UpdateOrder: 0
-  ComponentUid: 00000000-0000-0000-0000-000000000000
+  ComponentUid: 30026a56-40fb-472c-967c-4561673f2dd5
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
-    {}
+    buttonSizeCm: false
+    startLabel: false
+    stopLabel: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -38,10 +40,18 @@
   Attachments:
     []
   DefaultScriptInputs:
-    -
-      {}
+    - buttonSizeCm: !<float> 8.000000
+      startLabel: Start
+      stopLabel: Stop
   ScriptTypes:
     -
       {}
   InputLines:
-    []
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">LabLoggerStartStopButtonUI – big Start/Stop button</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">Settings</span>"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float buttonSizeCm = 8 {"hint":"Button diameter in cm (brief default: about 8 cm).", "widget":"slider", "min":5, "max":14, "step":0.5}'
+    - '// @input string startLabel = "Start" {"hint":"Label shown before / after recording."}'
+    - '// @input string stopLabel = "Stop" {"hint":"Label shown while recording."}'
+    - '// @ui {"widget":"group_end"}'

@@ -4,6 +4,7 @@
     - !<own> 00000000-0000-0065-0000-000000000064
     - !<own> 0005641c-028d-459a-0000-000000014b4d
     - !<own> f5d74682-203a-4970-81ea-9fa7b88c96bb
+    - !<own> 0f98b0a2-6ad7-416c-9a2b-cdcaf40dcd24
   layers: !<Layers/267ee9a7-aff2-4f9d-9a49-f71214747d03>
     userLayers:
       - id: 1
@@ -424,6 +425,23 @@
     - !<own> 9e373d68-993f-4c8f-83a0-6644f1d9fefd
   Components:
     []
+- !<SceneObject/0f98b0a2-6ad7-416c-9a2b-cdcaf40dcd24>
+  PrefabRemaps:
+    []
+  Name: LabLogger
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 1f46a8f9-86c2-4939-92d0-58d0d051d4ac
+    - !<own> a9c10ec7-4df1-44a4-89ed-392bfc03dd27
+    - !<own> 43607d11-b1a3-4aaa-afd2-f4c82abdf885
+  Components:
+    - !<own> 59795876-5a5d-43e6-9269-860efdb3d6ec
 - !<SceneObject/10f60da2-2196-40ad-9e72-8a6bc7e86f35>
   PrefabRemaps:
     []
@@ -509,6 +527,23 @@
     HasSegmentScaleCompensation: false
   Children:
     []
+  Components:
+    []
+- !<SceneObject/1f46a8f9-86c2-4939-92d0-58d0d051d4ac>
+  PrefabRemaps:
+    []
+  Name: Bench
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: -32.000000, z: -100.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> f6b1e37c-7061-4c96-afe3-bdec4c79e0e7
+    - !<own> 8a705d8a-54fa-46bb-832e-ad3c3622f214
+    - !<own> f7153160-03e1-4fe1-87c8-5699cd2a6e9d
   Components:
     []
 - !<RenderMeshVisual/1f969daa-5809-4500-b314-98d91ccba131>
@@ -693,6 +728,31 @@
     ring-3_end_end_end: !<reference> b93dfa60-41bd-4999-ac0f-4b2f1df2bdaf
     thumb-3_end_end_end_end: !<reference> 08e3cc22-f2e1-49fb-9ddc-145fe6547ce3
     pinky-3_end_end: !<reference> d08269e3-acd4-4156-b5b9-477ca259611d
+- !<ScriptComponent/2a235f8e-ff14-49e1-96c5-0979d7a6aa6c>
+  PrefabRemaps:
+    []
+  Name: LabLoggerObservationTableUI
+  Enabled: true
+  ScriptAsset: !<reference> 5d4863aa-e01a-4423-92cd-9822c6b87334
+  ScriptInputsDefault:
+    panelWidthCm: true
+    rowHeightCm: true
+    titleText: true
+    newestRowColor: true
+    headerColor: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      panelWidthCm: !<float> 60.000000
+      visibleHistoryRows: !<float> 6.000000
+      rowHeightCm: 2.200000
+      titleText: Observation Table
+      newestRowColor: !<Vec3> {x: 0.550000, y: 1.000000, z: 0.650000}
+      headerColor: !<Vec3> {x: 0.550000, y: 0.850000, z: 1.000000}
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/2dae2a27-8ce6-466a-8bff-622195c1b3a8>
   PrefabRemaps:
     []
@@ -794,6 +854,32 @@
     - !<own> 4051028a-c608-4a97-b3d5-1a3912a7c007
   Components:
     []
+- !<ScriptComponent/38781916-1bcd-4d31-bec6-ac5ede309486>
+  PrefabRemaps:
+    []
+  Name: LabLoggerGraphPanelUI
+  Enabled: true
+  ScriptAsset: !<reference> 41095088-c2ad-4608-a694-e4965cc2c946
+  ScriptInputsDefault:
+    panelWidthCm: true
+    primaryLineColor: true
+    secondaryLineColor: true
+    gridColor: true
+    lineThicknessCm: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      lineMaterial: !<reference.Material> 125b9cb4-e135-4bd7-b227-933426046009
+      panelWidthCm: !<float> 60.000000
+      plotHeightCm: !<float> 18.000000
+      primaryLineColor: !<Vec3> {x: 1.000000, y: 0.720000, z: 0.350000}
+      secondaryLineColor: !<Vec3> {x: 0.450000, y: 0.900000, z: 1.000000}
+      gridColor: !<Vec3> {x: 0.600000, y: 0.650000, z: 0.750000}
+      lineThicknessCm: 0.300000
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/3a794764-c758-4d72-9d89-bf3ed978113f>
   PrefabRemaps:
     []
@@ -809,6 +895,26 @@
     - !<own> 264571d0-f879-411b-8deb-ff6d9921317f
   Components:
     []
+- !<RenderMeshVisual/3aa5f594-de89-47a9-bba1-7f610fbaec46>
+  PrefabRemaps:
+    []
+  Name: geometry_0
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 59b23be5-ccfb-4613-ae14-e8cb64f4b0d2
+  Mesh: !<reference> 34d73f50-efee-4671-af55-11eb5521f820
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
 - !<SceneObject/3b4f5057-b516-4d3b-9c8d-14c81af2f505>
   PrefabRemaps:
     []
@@ -869,6 +975,21 @@
     []
   Components:
     - !<own> 1f969daa-5809-4500-b314-98d91ccba131
+- !<SceneObject/43607d11-b1a3-4aaa-afd2-f4c82abdf885>
+  PrefabRemaps:
+    []
+  Name: LabLoggerAudio
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 727592ff-871a-4c05-8a5c-96c964a71ea8
 - !<SceneObject/44097eaf-01da-45fb-8973-3bd8172618de>
   PrefabRemaps:
     []
@@ -944,6 +1065,26 @@
     []
   Components:
     - !<own> 5f153ad7-2baa-4fd9-a298-0dcfad86da3b
+- !<ScriptComponent/51bfa585-f02e-4a33-b4ef-eb3fdd13d1d7>
+  PrefabRemaps:
+    []
+  Name: LabLoggerStartStopButtonUI
+  Enabled: true
+  ScriptAsset: !<reference> 52427862-be64-4987-b97a-8d3fe47df3ee
+  ScriptInputsDefault:
+    buttonSizeCm: true
+    startLabel: true
+    stopLabel: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      buttonSizeCm: !<float> 8.000000
+      startLabel: Start
+      stopLabel: Stop
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/52ecefe4-5642-445a-ad16-52ce818076bc>
   PrefabRemaps:
     []
@@ -989,6 +1130,54 @@
     - !<own> bf2095b6-c6f8-48c8-b840-e0a6cec0dc99
   Components:
     []
+- !<ScriptComponent/59795876-5a5d-43e6-9269-860efdb3d6ec>
+  PrefabRemaps:
+    []
+  Name: LabLoggerMain
+  Enabled: true
+  ScriptAsset: !<reference> 53dc2da3-b3c1-4f60-b755-254c54c2cbc1
+  ScriptInputsDefault:
+    logIntervalSec: true
+    displayRefreshSec: true
+    ambientTempC: true
+    heater1Volts: true
+    heater2Volts: true
+    placeInFrontOfUser: true
+    debugLogging: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      sensorDisplays: !<MappingBased.AssignableType_1> 96dbf1d1-10f7-49c0-be98-b2b063238e1d
+      observationTable: !<MappingBased.AssignableType_2> 2a235f8e-ff14-49e1-96c5-0979d7a6aa6c
+      graphPanel: !<MappingBased.AssignableType_3> 38781916-1bcd-4d31-bec6-ac5ede309486
+      startStopButton: !<MappingBased.AssignableType_4> 51bfa585-f02e-4a33-b4ef-eb3fdd13d1d7
+      audio: !<MappingBased.AssignableType_5> 727592ff-871a-4c05-8a5c-96c964a71ea8
+      logIntervalSec: !<float> 10.000000
+      displayRefreshSec: !<float> 1.000000
+      ambientTempC: !<float> 25.000000
+      heater1Volts: !<float> 12.000000
+      heater2Volts: !<float> 10.000000
+      placeInFrontOfUser: true
+      debugLogging: false
+  ScriptTypes:
+    "":
+      {}
+- !<SceneObject/5e21bc48-91ee-4687-b8f3-d197788ee761>
+  PrefabRemaps:
+    []
+  Name: GraphPanel
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 1.000000, z: 0.500000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 38781916-1bcd-4d31-bec6-ac5ede309486
 - !<ScriptComponent/5f153ad7-2baa-4fd9-a298-0dcfad86da3b>
   PrefabRemaps:
     []
@@ -1229,6 +1418,21 @@
     - !<own> 6dbaab8f-d98a-4f36-b836-1d7c8a0cca87
   Components:
     []
+- !<SceneObject/716dc311-5d20-4a29-bf03-6e8e36571033>
+  PrefabRemaps:
+    []
+  Name: geometry_0
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.665000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 3aa5f594-de89-47a9-bba1-7f610fbaec46
 - !<SceneObject/71e47ae8-e7da-438c-be22-b495f0fbd4fe>
   PrefabRemaps:
     []
@@ -1244,6 +1448,26 @@
     - !<own> 879ce45b-bd5e-40ff-a3fe-d821523427e4
   Components:
     - !<own> 64f27597-c99d-4c59-8a08-05459cc2258d
+- !<ScriptComponent/727592ff-871a-4c05-8a5c-96c964a71ea8>
+  PrefabRemaps:
+    []
+  Name: LabLoggerAudio
+  Enabled: true
+  ScriptAsset: !<reference> 144ab772-1ae5-4dc8-a0b8-1f84b64d7d6f
+  ScriptInputsDefault:
+    volume: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      recordStartClip: !<reference.AudioTrackAsset> 290db28f-ab63-4396-9085-10a9ba1c0936
+      recordStopClip: !<reference.AudioTrackAsset> 23af4c8c-1cd8-49cc-a8c7-0bd6c63b8ddd
+      rowLoggedClip: !<reference.AudioTrackAsset> db357635-3930-4181-a82f-2c04ac0dbb82
+      navClickClip: !<reference.AudioTrackAsset> 014ec19c-16a3-4e0a-ae7a-97e9fe4e8780
+      volume: 0.800000
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/74d13517-1dbf-42e6-b536-27afc4909c65>
   PrefabRemaps:
     []
@@ -1304,6 +1528,21 @@
     []
   Components:
     - !<own> c8e031d3-a8a1-468a-a419-427f8556de4c
+- !<SceneObject/790074d0-b241-42e8-8df5-b4e4d0cf0b3f>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 716dc311-5d20-4a29-bf03-6e8e36571033
+  Components:
+    []
 - !<SceneObject/7aa85bd8-d423-42cd-b190-473711e94929>
   PrefabRemaps:
     []
@@ -1476,6 +1715,21 @@
     - !<own> 1fc7fa3e-6910-4741-b8a7-1b6660a39a9d
   Components:
     - !<own> 28e05826-1521-46fa-a54c-80f2957ec80c
+- !<SceneObject/8a705d8a-54fa-46bb-832e-ad3c3622f214>
+  PrefabRemaps:
+    []
+  Name: StartStopButton
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 33.000000, y: 5.000000, z: 8.000000}
+    Rotation: {x: -25.000000, y: -20.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 51bfa585-f02e-4a33-b4ef-eb3fdd13d1d7
 - !<SceneObject/8b877074-7eee-4be1-b669-714f8d5a1da3>
   PrefabRemaps:
     []
@@ -1560,6 +1814,30 @@
     - !<own> e9454e66-5d09-4a8a-bcd7-dea762326a48
   Components:
     []
+- !<ScriptComponent/96dbf1d1-10f7-49c0-be98-b2b063238e1d>
+  PrefabRemaps:
+    []
+  Name: LabLoggerSensorDisplaysUI
+  Enabled: true
+  ScriptAsset: !<reference> c623ebb8-a92d-4d62-8ce4-13758faea25f
+  ScriptInputsDefault:
+    cardWidthCm: true
+    cardHeightCm: true
+    cardGapCm: true
+    temperatureColor: true
+    heaterColor: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      cardWidthCm: !<float> 10.000000
+      cardHeightCm: 14.500000
+      cardGapCm: 1.200000
+      temperatureColor: !<Vec3> {x: 1.000000, y: 0.860000, z: 0.620000}
+      heaterColor: !<Vec3> {x: 0.550000, y: 0.850000, z: 1.000000}
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/988c408a-99dc-47e6-b7c4-efbf4bf8dc3c>
   PrefabRemaps:
     []
@@ -1670,6 +1948,21 @@
     - !<own> b93dfa60-41bd-4999-ac0f-4b2f1df2bdaf
   Components:
     []
+- !<SceneObject/a52a7d56-3a93-4766-af59-1ef3d8189fa9>
+  PrefabRemaps:
+    []
+  Name: ObservationTable
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 2a235f8e-ff14-49e1-96c5-0979d7a6aa6c
 - !<SceneObject/a6305e2f-5379-4729-800a-d5ecae615edc>
   PrefabRemaps:
     []
@@ -1760,6 +2053,22 @@
     []
   Components:
     - !<own> 11c4bb09-7c38-4023-9802-74f9f28709a9
+- !<SceneObject/a9c10ec7-4df1-44a4-89ed-392bfc03dd27>
+  PrefabRemaps:
+    []
+  Name: DataPanels
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 4.000000, z: -115.000000}
+    Rotation: {x: -4.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> a52a7d56-3a93-4766-af59-1ef3d8189fa9
+    - !<own> 5e21bc48-91ee-4687-b8f3-d197788ee761
+  Components:
+    []
 - !<SceneObject/abfa4c71-3560-46f0-9471-90e212f21185>
   PrefabRemaps:
     []
@@ -2083,6 +2392,21 @@
     - !<own> 650dc0b4-8d22-4aab-87b4-d8e56fb59a67
   Components:
     - !<own> 0847d2bb-a13f-4c4a-a404-169f67308f6f
+- !<SceneObject/cff9c96d-4277-47e0-8999-4b91fa769ad3>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 790074d0-b241-42e8-8df5-b4e4d0cf0b3f
+  Components:
+    []
 - !<SceneObject/d08269e3-acd4-4156-b5b9-477ca259611d>
   PrefabRemaps:
     []
@@ -2556,6 +2880,40 @@
     HasSegmentScaleCompensation: false
   Children:
     - !<own> 181c239f-175e-4912-94fc-d37a2599b2d6
+  Components:
+    []
+- !<SceneObject/f6b1e37c-7061-4c96-afe3-bdec4c79e0e7>
+  PrefabRemaps:
+    []
+  Name: SensorDisplays
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 9.000000, z: -5.000000}
+    Rotation: {x: -15.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 96dbf1d1-10f7-49c0-be98-b2b063238e1d
+- !<SceneObject/f7153160-03e1-4fe1-87c8-5699cd2a6e9d>
+  PrefabRemaps:
+    - 3aa5f594-de89-47a9-bba1-7f610fbaec46: 5a6386a2-5e1c-48e5-7205-3848f87fed61
+    - 716dc311-5d20-4a29-bf03-6e8e36571033: bb23b582-88b1-4544-4755-6900424fffc0
+    - 790074d0-b241-42e8-8df5-b4e4d0cf0b3f: 5c4dead9-9de6-4501-44c5-69982b47b13c
+    - cff9c96d-4277-47e0-8999-4b91fa769ad3: c693f5e7-2c04-436d-4728-d3947fd4f082
+    - f7153160-03e1-4fe1-87c8-5699cd2a6e9d: 126e0b10-6b41-4b59-465e-d92d58a7b058
+  Name: LabBenchModel
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: -90.500000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> cff9c96d-4277-47e0-8999-4b91fa769ad3
   Components:
     []
 - !<SceneObject/f74a6bbb-4fba-4d8b-9b4e-64dd1c3e9ac3>

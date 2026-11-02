@@ -11,6 +11,10 @@
  *         pressNext() / pressPrevious() → programmatic presses (LEAF)
  *         shownGraphIndex, graphCount, currentTitle, pageLabel, plottedPointCount, isVisible
  * Must not: own which graph is current — LabLoggerMain owns currentGraphIndex.
+ *
+ * Size note (~315 lines): the chart renderer (MeshBuilder line quads) lives here with the
+ * panel because it draws into the panel's plot cell; the RenderMeshVisuals are chart
+ * geometry, not a hand-rolled panel surface (the surface is a UIKit BackPlate).
  */
 import {BackPlate} from "SpectaclesUIKit.lspkg/Scripts/BackPlate"
 import {Button} from "SpectaclesUIKit.lspkg/Scripts/Components/Button/Button"
@@ -50,7 +54,7 @@ export class LabLoggerGraphPanelUI extends BaseScriptComponent {
   @input
   @hint("Plot area height, cm.")
   @widget(new SliderWidget(14, 34, 0.5))
-  plotHeightCm: number = 22
+  plotHeightCm: number = 18
 
   @input("vec3", "{1.0,0.72,0.35}")
   @hint("Colour of the main data line (temperature / voltage).")
@@ -159,9 +163,11 @@ export class LabLoggerGraphPanelUI extends BaseScriptComponent {
 
     // Chart row: left ticks | plot | right ticks
     const chart = flexRow(col, "ChartRow", innerW, chartH, {align: FlexAlign.Center})
-    const left = flexColumn(chart, "YAxisLeft", axisW, chartH, {justify: FlexJustify.SpaceBetween})
+    // Tick cells are narrower than the axis column and pushed away from the plot so labels never touch the border.
+    const tickW = axisW - 1.0
+    const left = flexColumn(chart, "YAxisLeft", axisW, chartH, {justify: FlexJustify.SpaceBetween, align: FlexAlign.Start})
     for (let k = 0; k < Y_TICKS; k++) {
-      this.yLeft.push(rowText(left, `YL_${k}`, "", "Caption", axisW, vec4FromVec3(this.primaryLineColor),
+      this.yLeft.push(rowText(left, `YL_${k}`, "", "Caption", tickW, vec4FromVec3(this.primaryLineColor),
         HorizontalAlignment.Right, TICK_LABEL_H))
     }
     flexChild(chart, "PlotArea", {w: this.plotW, h: chartH}, (plot) => {
@@ -169,9 +175,9 @@ export class LabLoggerGraphPanelUI extends BaseScriptComponent {
       this.seriesRmv.push(this.makeLayer(plot, "Series0", 0.1, vec4FromVec3(this.primaryLineColor)))
       this.seriesRmv.push(this.makeLayer(plot, "Series1", 0.12, vec4FromVec3(this.secondaryLineColor)))
     })
-    const right = flexColumn(chart, "YAxisRight", axisW, chartH, {justify: FlexJustify.SpaceBetween})
+    const right = flexColumn(chart, "YAxisRight", axisW, chartH, {justify: FlexJustify.SpaceBetween, align: FlexAlign.End})
     for (let k = 0; k < Y_TICKS; k++) {
-      this.yRight.push(rowText(right, `YR_${k}`, "", "Caption", axisW, vec4FromVec3(this.secondaryLineColor),
+      this.yRight.push(rowText(right, `YR_${k}`, "", "Caption", tickW, vec4FromVec3(this.secondaryLineColor),
         HorizontalAlignment.Left, TICK_LABEL_H))
     }
 
@@ -259,7 +265,10 @@ export class LabLoggerGraphPanelUI extends BaseScriptComponent {
       this.legendTexts[s].text = `● ${series.label} (${series.unit}${axisNote})`
       const yr = niceRange(series.values, Y_TICKS)
       // SpaceBetween column lists top → bottom, so label k shows max − k·step
-      for (let k = 0; k < Y_TICKS; k++) labels[k].text = fmtTick(yr.max - k * yr.step, yr.step)
+      for (let k = 0; k < Y_TICKS; k++) {
+        const v = fmtTick(yr.max - k * yr.step, yr.step)
+        labels[k].text = v
+      }
       const yOf = (v: number) => -halfH + (v - yr.min) / (yr.max - yr.min) * this.plotHeightCm
       const segs: number[][] = []
       const pts: number[][] = []

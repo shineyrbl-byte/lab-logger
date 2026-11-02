@@ -2,7 +2,7 @@
  * LabLoggerData — shared data types, the scripted heat-transfer sample model,
  * number formatting, and the seven graph definitions.
  *
- * Owns:   pure logic only (no scene access, no UIKit, no Component.Text).
+ * Owns:   pure logic only (no scene access, no UI).
  * Inputs: none — LabLoggerMain passes the tunable model parameters in.
  * Must not: touch SceneObjects or hold UI state.
  *

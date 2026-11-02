@@ -24,11 +24,15 @@
   VersionPatch: 0
   VersionPrerelease: ""
   UpdateOrder: 0
-  ComponentUid: 00000000-0000-0000-0000-000000000000
+  ComponentUid: c7e97206-a925-41b8-b956-ff5bb18fdf2d
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
-    {}
+    cardGapCm: false
+    cardHeightCm: false
+    cardWidthCm: false
+    heaterColor: false
+    temperatureColor: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -38,10 +42,22 @@
   Attachments:
     []
   DefaultScriptInputs:
-    -
-      {}
+    - cardWidthCm: !<float> 10.000000
+      cardHeightCm: 14.500000
+      cardGapCm: 1.200000
+      temperatureColor: !<Vec3> {x: 1.000000, y: 0.860000, z: 0.620000}
+      heaterColor: !<Vec3> {x: 0.550000, y: 0.850000, z: 1.000000}
   ScriptTypes:
     -
       {}
   InputLines:
-    []
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">LabLoggerSensorDisplaysUI – T1–T5 sensor displays (stand-in instruments)</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">Settings</span>"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float cardWidthCm = 10 {"hint":"Width of each sensor display card, cm.", "widget":"slider", "min":7, "max":14, "step":0.5}'
+    - '// @input float cardHeightCm = 14.5 {"hint":"Height of each sensor display card, cm.", "widget":"slider", "min":10, "max":20, "step":0.5}'
+    - '// @input float cardGapCm = 1.2 {"hint":"Gap between neighbouring display cards, cm.", "widget":"slider", "min":0, "max":4, "step":0.1}'
+    - '// @input vec3 temperatureColor = "{1.0,0.86,0.62}" {"hint":"Colour of the big temperature readout (keep it light — the display is additive).", "widget":"color"}'
+    - '// @input vec3 heaterColor = "{0.55,0.85,1.0}" {"hint":"Colour of the heater voltage / current readouts on T4 and T5.", "widget":"color"}'
+    - '// @ui {"widget":"group_end"}'

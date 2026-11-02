@@ -78,6 +78,10 @@ export class LabLoggerMain extends BaseScriptComponent {
   heater2Volts: number = 10
 
   @input
+  @hint("Move the whole setup so it starts in front of the user's head (yaw only) a few frames after launch.")
+  placeInFrontOfUser: boolean = true
+
+  @input
   @hint("Print a log line for every recorded row (debugging).")
   debugLogging: boolean = false
   @ui.group_end
@@ -94,6 +98,8 @@ export class LabLoggerMain extends BaseScriptComponent {
   private _shownReading: Reading | null = null
   private model: SampleModelParams = DEFAULT_MODEL
   private ready = false
+  private framesSinceStart = 0
+  private placed = false
 
   get isRecording(): boolean { return this._isRecording }
   /** Copy of all logged rows (oldest first). */
@@ -184,6 +190,7 @@ export class LabLoggerMain extends BaseScriptComponent {
   // ── Per-frame ──────────────────────────────────────────────────────────────
   private onUpdate(): void {
     if (!this.ready) return
+    if (!this.placed && ++this.framesSinceStart >= 5) this.placeRelativeToUser()
     const dt = getDeltaTime()
     if (this._heatersOn) this._runTimeSec += dt
     if (this._isRecording) {
@@ -214,6 +221,36 @@ export class LabLoggerMain extends BaseScriptComponent {
       this._nextLogAt += Math.max(1, this.logIntervalSec)
       this._sinceRefresh = 0
     }
+  }
+
+  /**
+   * The scene is authored with the user's head at the root's origin, looking down -Z.
+   * Re-anchor the root to the camera's starting pose (position + yaw only) so the bench
+   * is ~1 m ahead regardless of where tracking starts (the Interactive Preview starts
+   * the camera away from the world origin).
+   */
+  private placeRelativeToUser(): void {
+    this.placed = true
+    if (!this.placeInFrontOfUser) return
+    const cam = this.findCamera()
+    if (!cam) return
+    const ct = cam.getTransform()
+    const fwd = ct.forward                    // camera looks along -forward
+    const yaw = Math.atan2(fwd.x, fwd.z)   // 0 when looking down -Z
+    const t = this.getSceneObject().getTransform()
+    t.setWorldPosition(ct.getWorldPosition())
+    t.setWorldRotation(quat.fromEulerAngles(0, yaw, 0))
+  }
+
+  private findCamera(): SceneObject | null {
+    const stack: SceneObject[] = []
+    for (let i = 0; i < global.scene.getRootObjectsCount(); i++) stack.push(global.scene.getRootObject(i))
+    while (stack.length > 0) {
+      const o = stack.pop()!
+      if (o.getComponent("Component.Camera")) return o
+      for (let c = 0; c < o.getChildrenCount(); c++) stack.push(o.getChild(c))
+    }
+    return null
   }
 
   private pushDisplays(): void {

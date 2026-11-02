@@ -82,6 +82,8 @@ export function makeFlex(parent: SceneObject, name: string, direction: FlexDirec
   const container = obj(parent, name)
   liftInZ(container, LAYOUT_Z_LIFT)
   const flex = container.createComponent(FlexLayout.getTypeName()) as FlexLayout
+  // Children are registered explicitly via addItems (UIKit 2 throws on pre-init addItems otherwise).
+  flex.autoDiscoverItemsOnStart = false
   const item = container.createComponent(FlexItem.getTypeName()) as FlexItem
   if (width > 0) item.overrideWidth = width
   if (height > 0) item.overrideHeight = height

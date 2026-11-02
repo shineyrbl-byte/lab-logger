@@ -39,7 +39,7 @@ export class LabLoggerObservationTableUI extends BaseScriptComponent {
   @input
   @hint("How many older rows are visible at once in the scrollable history.")
   @widget(new SliderWidget(3, 12, 1))
-  visibleHistoryRows: number = 7
+  visibleHistoryRows: number = 6
 
   @input
   @hint("Height of one table row, cm.")
@@ -173,6 +173,7 @@ export class LabLoggerObservationTableUI extends BaseScriptComponent {
       // Content created BEFORE ScrollWindow init is moved into its Scroller automatically.
       this.list = obj(host, "HistoryList")
       this.listFlex = this.list.createComponent(FlexLayout.getTypeName()) as FlexLayout
+      this.listFlex.autoDiscoverItemsOnStart = false
       this.listFlex.onInitialized.add(() => {
         this.listFlex.width = this.innerW
         this.listFlex.height = historyH
@@ -220,6 +221,9 @@ export class LabLoggerObservationTableUI extends BaseScriptComponent {
     const windowH = this.visibleHistoryRows * this.rowHeightCm
     const contentH = Math.max(windowH, this.historyRows.length * this.rowHeightCm)
     this.listFlex.height = contentH
+    // With verticalAlignment = Top the layout hangs its content DOWN from the list's
+    // origin; ScrollWindow expects content centred on the scroller, so lift by H/2.
+    this.list.getTransform().setLocalPosition(new vec3(0, contentH / 2, 0))
     this.scroll.scrollDimensions = new vec2(this.innerW, contentH)
   }
 }
