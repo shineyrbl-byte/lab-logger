@@ -242,13 +242,21 @@ export class LabLoggerMain extends BaseScriptComponent {
     t.setWorldRotation(quat.fromEulerAngles(0, yaw, 0))
   }
 
+  /**
+   * The user's world (head) camera: enabled, perspective, rendering to the scene's live target
+   * (same rule SIK's WorldCameraFinderProvider uses). Other cameras — UI/overlay or debug cameras
+   * added at runtime — must not be picked, or the bench gets anchored to the wrong pose.
+   */
   private findCamera(): SceneObject | null {
+    const target = global.scene.liveTarget !== null ? global.scene.liveTarget : global.scene.captureTarget
     const stack: SceneObject[] = []
-    for (let i = 0; i < global.scene.getRootObjectsCount(); i++) stack.push(global.scene.getRootObject(i))
+    for (let i = global.scene.getRootObjectsCount() - 1; i >= 0; i--) stack.push(global.scene.getRootObject(i))
     while (stack.length > 0) {
       const o = stack.pop()!
-      if (o.getComponent("Component.Camera")) return o
-      for (let c = 0; c < o.getChildrenCount(); c++) stack.push(o.getChild(c))
+      const cam = o.getComponent("Component.Camera") as Camera
+      if (cam && o.isEnabledInHierarchy && cam.type === Camera.Type.Perspective && cam.renderTarget &&
+        cam.renderTarget.isSame(target)) return o
+      for (let c = o.getChildrenCount() - 1; c >= 0; c--) stack.push(o.getChild(c))
     }
     return null
   }
